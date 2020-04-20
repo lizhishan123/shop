@@ -139,7 +139,7 @@ export default {
     },
     async getCateList () {
       const { data } = await this.$http.get('categories')
-      this.cateList = data.data.slice(0, 10)
+      this.cateList = data.data
     },
     handleChange () {
       if (this.addGoodForm.goods_cat.length !== 3) {

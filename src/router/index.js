@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Login = import('../components/Login.vue')
-const Home = import('../components/Home.vue')
-const Welcome = import('../components/Welcome')
-const Users = import('../components/Users/Users.vue')
-const Roles = import('../components/Rights/Roles.vue')
-const Rights = import('../components/Rights/Rights.vue')
-const Goods = import('../components/Goods/Goods.vue')
-const Params = import('../components/Goods/Params.vue')
-const Add = import('../components/Goods/Add.vue')
-const Categories = import('../components/Goods/Categories.vue')
-const Orders = import('../components/Orders/Orders.vue')
-const Reports = import('../components/Reports/Reports.vue')
+const Login = () => import('../components/Login.vue')
+const Home = () => import('../components/Home.vue')
+const Welcome = () => import('../components/Welcome')
+const Users = () => import('../components/Users/Users.vue')
+const Roles = () => import('../components/Rights/Roles.vue')
+const Rights = () => import('../components/Rights/Rights.vue')
+const Goods = () => import('../components/Goods/Goods.vue')
+const Params = () => import('../components/Goods/Params.vue')
+const Add = () => import('../components/Goods/Add.vue')
+const Categories = () => import('../components/Goods/Categories.vue')
+const Orders = () => import('../components/Orders/Orders.vue')
+const Reports = () => import('../components/Reports/Reports.vue')
 
 Vue.use(VueRouter)
 
@@ -37,6 +37,20 @@ const routes = [
   }
 ]
 
-export default new VueRouter({
+const router = new VueRouter({
   routes
 })
+
+// 路由导航
+router.beforeEach((to, from, next) => {
+  // 如果是访问登陆页面，直接放行
+  if (to.path === '/login') return next()
+  // 判断是否登录
+  const tokenStr = window.sessionStorage.getItem('token')
+  // 没登录，不放行
+  if (!tokenStr) return next('/login')
+  // 登录，放行
+  next()
+})
+
+export default router

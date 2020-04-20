@@ -5,7 +5,7 @@ import router from './router'
 // 导入全局样式
 import './assets/css/reset.css'
 // 导入字体图标
-import './assets/fonts/iconfont.css'
+// import './assets/fonts/iconfont.css'
 // 导入富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
 // 导入富文本编辑器对应的样式
@@ -41,18 +41,6 @@ Vue.filter('dateFormat', function (originVal) {
   const mm = (dt.getMinutes() + '').padStart(2, '0')
   const ss = (dt.getSeconds() + '').padStart(2, '0')
   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
-})
-
-// 路由导航
-router.beforeEach((to, from, next) => {
-  // 如果是访问登陆页面，直接放行
-  if (to.path === '/login') return next()
-  // 判断是否登录
-  const tokenStr = window.sessionStorage.getItem('token')
-  // 没登录，不放行
-  if (!tokenStr) return next('/login')
-  // 登录，放行
-  next()
 })
 
 Vue.config.productionTip = false
